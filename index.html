@@ -4,25 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/imgs/01.jpg" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/normalize.css" />
-    <link rel="stylesheet" href="/css/master.css" /> 
+    <link rel="stylesheet" href="/css/master.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
     <title>Desing From Js</title>
   </head>
   <body>
+    <!-- Start -->
+     <li class="fa fa-gear"></li>
+    <!-- End -->
     <!-- Start Landing Page -->
     <div class="landing-page">
       <div class="overlay"></div>
       <div class="headar-area">
         <div class="logo">Desing From Js</div>
-        <ul>
-          <li>About</li>
-          <li>Service</li>
-          <li>products</li>
-          <li>Contact</li>
+        <ul class="links">
+          <li>
+            <a href="#" class="active"
+              ><i class="fa-solid fa-house"></i> Home
+            </a>
+          </li>
+          <li><a href="#" class=""> About </a></li>
+          <li><a href="#" class=""> Service </a></li>
+          <li><a href="#" class=""> products </a></li>
+          <li><a href="#" class=""> Contact </a></li>
         </ul>
       </div>
       <div class="introduction-text">
-        <h1>We Are Creative Agency</h1>
+        <h1>We Are <span>Creative</span> Agency</h1>
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium,
           reiciendis recusandae officia iusto veniam ex quaerat.
@@ -30,7 +45,6 @@
       </div>
     </div>
     <!-- End Landing Page -->
-
-    <script src="/js/master"></script>
+    <script src="/js/master.js"></script>
   </body>
 </html>
