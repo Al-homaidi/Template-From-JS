@@ -4,6 +4,36 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+/* Start Settings-box */
+.Settings-box {
+  position: fixed;
+  background-color: #fff;
+  z-index: 999;
+  width: 200px;
+  min-height: 100vh;
+  top: 0;
+  left: -200px;
+  transition: left 0.3s ease;
+}
+.toggle-settings {
+  position: absolute;
+  right: -30px;
+  top: 100px;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  z-index: 999;
+  width: 31px;
+  padding: 8px 0px;
+}
+.Settings-box .fa-gear {
+  transition: transform 0.3s;
+  color: black;
+  font-size: 17px;
+}
+.Settings-box .Settings-container {
+}
+/* End Settings-box */
 /* Start landing-page */
 .landing-page {
   min-height: 100vh;

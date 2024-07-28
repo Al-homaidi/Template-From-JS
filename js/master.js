@@ -16,9 +16,21 @@ const imges = [
 ];
 let img = document.querySelector(".landing-page");
 let landingpagefunction = function () {
-    let roundmnumber = Math.floor(Math.random() * imges.length)
-    console.log(roundmnumber);
-    img.style.backgroundImage = `url(${imges[roundmnumber]})`;
+  let roundmnumber = Math.floor(Math.random() * imges.length);
+  img.style.backgroundImage = `url(${imges[roundmnumber]})`;
 };
 
 setInterval(landingpagefunction, 10000);
+
+let Settingsbox = document.querySelector(".Settings-box");
+let gearIcon = document.querySelector(".fa-gear");
+let togglesettings = document.querySelector(".toggle-settings");
+
+togglesettings.onclick = function () {
+  if (Settingsbox.style.left === "-200px" || Settingsbox.style.left === "") {
+    Settingsbox.style.left = "0px";
+  } else {
+    Settingsbox.style.left = "-200px";
+  }
+  gearIcon.classList.toggle("fa-spin");
+};
