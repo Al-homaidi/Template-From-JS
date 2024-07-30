@@ -1,8 +1,17 @@
 :root {
   --main-color: #ff9800;
 }
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: "Open Sans", sans-serif;
+}
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
+  width: 1170px;
 }
 /* Start Settings-box */
 .Settings-box {
@@ -13,7 +22,7 @@ body {
   min-height: 100vh;
   top: 0;
   left: -200px;
-  transition: left 0.3s ease;
+  transition: 0.4s;
 }
 .toggle-settings {
   position: absolute;
@@ -24,14 +33,78 @@ body {
   cursor: pointer;
   z-index: 999;
   width: 31px;
-  padding: 8px 0px;
+  padding: 6px 0px;
 }
 .Settings-box .fa-gear {
   transition: transform 0.3s;
   color: black;
-  font-size: 17px;
+  font-size: 15px;
 }
-.Settings-box .Settings-container {
+.Settings-box .Settings-container .option-box {
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  background-color: #eee;
+}
+.Settings-box .option-box h4 {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+.Settings-box .option-box .colors-list {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+.Settings-box .option-box .colors-list li {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: solid 3px #eee;
+}
+.Settings-box .option-box .colors-list li.active {
+  border-color: #fff;
+}
+.Settings-box .option-box .colors-list li:first-child {
+  background-color: #ff9800;
+}
+.Settings-box .option-box .colors-list li:nth-child(2) {
+  background-color: #e91e63;
+}
+.Settings-box .option-box .colors-list li:nth-child(3) {
+  background-color: #009688;
+}
+.Settings-box .option-box .colors-list li:nth-child(4) {
+  background-color: #03a9f4;
+}
+.Settings-box .option-box .colors-list li:nth-child(5) {
+  background-color: #4caf50;
+}
+.Settings-box .option-box .buttons {
+  text-align: center;
+}
+.Settings-box .option-box .buttons span {
+  width: 50px;
+  background-color: var(--main-color);
+  color: #fff;
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.Settings-box .option-box .buttons span:hover {
+  opacity: 1;
+}
+.Settings-box .option-box .buttons .active {
+  opacity: 1;
 }
 /* End Settings-box */
 /* Start landing-page */
@@ -40,7 +113,7 @@ body {
   background: url(../imgs/01.jpg);
   background-size: cover;
   position: relative;
-  transition: background-image 1s ease-in-out;
+  transition: background-image 1s ease;
 }
 .landing-page .overlay {
   background-color: rgba(0, 0, 0, 0.61);
@@ -77,7 +150,6 @@ body {
 .headar-area .links li a {
   text-decoration: none;
   color: white;
-  transition: 0.3s;
 }
 .headar-area .links li a:hover {
   color: var(--main-color);
@@ -107,4 +179,93 @@ body {
 .introduction-text h1 span {
   color: var(--main-color);
 }
+
 /* End landing-page */
+/* Start About Us */
+.About-Us {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: flex;
+}
+.About-Us .info-box {
+  flex: 1;
+  padding: 30px;
+}
+.About-Us .info-box h2 {
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--main-color);
+  margin: 0 0 10px;
+}
+.About-Us .info-box p {
+  line-height: 1.8;
+  color: #767676;
+  margin: 0;
+}
+.About-Us .image-box {
+  flex: 1;
+  text-align: center;
+}
+.About-Us .image-box img {
+  width: 250px;
+}
+/* End About Us */
+/* Start Our-Skills */
+.Our-Skills {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #eee;
+}
+.Our-Skills h2 {
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--main-color);
+  margin: 0 0 50px;
+  text-align: center;
+}
+.Our-Skills .skill-box {
+  display: flex;
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.Our-Skills .skill-box .skill-name {
+    font-weight: bold;
+    width: 140px;
+    text-align: center;
+    line-height: 30px;
+}
+.Our-Skills .skill-box .skill-progress {
+    height: 30px;
+    width: 100%;
+    background-color: #f6f6f6;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+.Our-Skills .skill-box .skill-progress span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--main-color);
+    height: 100%;
+    width: 40%;
+}
+/* End Our-Skills */
+/* Start Media */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+/* End Media */
