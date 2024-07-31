@@ -1,204 +1,219 @@
+let mainColors = localStorage.getItem("color_option");
+
+if (mainColors !== null) {
+  document.documentElement.style.setProperty("--main-color", mainColors);
+  document.querySelectorAll(".colors-list li").forEach((element) => {
+    element.classList.remove("active");
+    if (element.dataset.color === mainColors) {
+      element.classList.add("active");
+    }
+  });
+}
+
 let backgroundOption = true;
 let backgroundInterval;
-let localStoragebackground = window.localStorage.getItem("data_background");
-if (localStoragebackground !== null) {
-  if (localStoragebackground === "true") {
+let backgroundLocalItem = localStorage.getItem("background_option");
+
+if (backgroundLocalItem !== null) {
+  document.querySelectorAll(".random-backgrounds span").forEach((element) => {
+    element.classList.remove("active");
+  });
+
+  if (backgroundLocalItem === "true") {
     backgroundOption = true;
+    document.querySelector(".random-backgrounds .yes").classList.add("active");
   } else {
     backgroundOption = false;
-  }
-  document.querySelectorAll(".buttons span").forEach((ele) => {
-    ele.classList.remove("active");
-  });
-  if (localStoragebackground === "true") {
-    document.querySelector(".buttons .yes").classList.add("active");
-  } else document.querySelector(".buttons .No").classList.add("active");
-}
-
-let buttonsrandombackground = document.querySelectorAll(
-  ".option-box .buttons span"
-);
-buttonsrandombackground.forEach((span) => {
-  span.addEventListener("click", function (e) {
-    buttonsrandombackground.forEach((ele) => {
-      ele.classList.remove("active");
-    });
-    e.target.classList.add("active");
-    if (e.target.dataset.background === "yes") {
-      window.localStorage.setItem("data_background", true);
-      backgroundOption = true;
-      randomizImge();
-    } else {
-      window.localStorage.setItem("data_background", false);
-      clearInterval(backgroundInterval);
-      backgroundOption = false;
-    }
-  });
-});
-
-let localStoragedata_displaynav =
-  window.localStorage.getItem("data_displaynav");
-if (localStoragedata_displaynav !== null) {
-  if (localStoragedata_displaynav === "true") {
-    document.querySelector(".nav-bullets").style.display = "block";
-  } else {
-    document.querySelector(".nav-bullets").style.display = "none";
-  }
-  document.querySelectorAll(".testing-option .buttons span").forEach((ele) => {
-    ele.classList.remove("active");
-  });
-  if (localStoragedata_displaynav === "true") {
-    document
-      .querySelector(".testing-option .buttons .yes")
-      .classList.add("active");
-  } else
-    document
-      .querySelector(".testing-option .buttons .No")
-      .classList.add("active");
-}
-
-let buttonsnavbullets = document.querySelectorAll(
-  ".testing-option .buttons span"
-);
-buttonsnavbullets.forEach((span) => {
-  span.addEventListener("click", function (e) {
-    buttonsnavbullets.forEach((ele) => {
-      ele.classList.remove("active");
-    });
-    e.target.classList.add("active");
-    if (e.target.dataset.displaynav === "yes") {
-      window.localStorage.setItem("data_displaynav", true);
-      document.querySelector(".nav-bullets").style.display = "block";
-    } else {
-      window.localStorage.setItem("data_displaynav", false);
-      document.querySelector(".nav-bullets").style.display = "none";
-    }
-  });
-});
-
-let links = document.querySelectorAll("ul li a");
-links.forEach((ele) => {
-  ele.onclick = function () {
-    links.forEach((e) => {
-      e.classList.remove("active");
-    });
-    this.classList.add("active");
-  };
-});
-
-const imges = [
-  "../imgs/01.jpg",
-  "../imgs/02.jpg",
-  "../imgs/03.jpg",
-  "../imgs/04.jpg",
-  "../imgs/05.jpg",
-];
-function randomizImge() {
-  if (backgroundOption === true) {
-    let img = document.querySelector(".landing-page");
-
-    backgroundInterval = setInterval(() => {
-      let roundmnumber = Math.floor(Math.random() * imges.length);
-      img.style.backgroundImage = `url(${imges[roundmnumber]})`;
-    }, 10000);
+    document.querySelector(".random-backgrounds .no").classList.add("active");
   }
 }
-randomizImge();
 
-let Settingsbox = document.querySelector(".Settings-box");
-let gearIcon = document.querySelector(".fa-gear");
-let togglesettings = document.querySelector(".toggle-settings");
-
-togglesettings.onclick = function () {
-  if (Settingsbox.style.left === "-200px" || Settingsbox.style.left === "") {
-    Settingsbox.style.left = "0px";
-  } else {
-    Settingsbox.style.left = "-200px";
-  }
-  gearIcon.classList.toggle("fa-spin");
+document.querySelector(".toggle-settings .fa-gear").onclick = function () {
+  this.classList.toggle("fa-spin");
+  document.querySelector(".settings-box").classList.toggle("open");
 };
 
-const colorli = document.querySelectorAll(".colors-list li");
-let localStoragecolor = localStorage.getItem("main-color");
-if (localStoragecolor !== null) {
-  document.documentElement.style.setProperty("--main-color", localStoragecolor);
-  colorli.forEach((ele) => {
-    ele.classList.remove("active");
-    if (ele.dataset.color === localStoragecolor) {
-      ele.classList.add("active");
-    }
-  });
-}
+const colorsLi = document.querySelectorAll(".colors-list li");
 
-colorli.forEach((li) => {
-  li.addEventListener("click", function (e) {
-    window.localStorage.setItem("main-color", e.target.dataset.color);
+colorsLi.forEach((li) => {
+  li.addEventListener("click", (e) => {
     document.documentElement.style.setProperty(
       "--main-color",
       e.target.dataset.color
     );
-    colorli.forEach((ele) => {
-      ele.classList.remove("active");
-    });
-    this.classList.add("active");
+    localStorage.setItem("color_option", e.target.dataset.color);
+    handleActive(e);
   });
 });
 
-let ourskils = document.querySelector(".Our-Skills");
+const randomBackEl = document.querySelectorAll(".random-backgrounds span");
+
+randomBackEl.forEach((span) => {
+  span.addEventListener("click", (e) => {
+    handleActive(e);
+    if (e.target.dataset.background === "yes") {
+      backgroundOption = true;
+      randomizeImgs();
+      localStorage.setItem("background_option", true);
+    } else {
+      backgroundOption = false;
+      clearInterval(backgroundInterval);
+      localStorage.setItem("background_option", false);
+    }
+  });
+});
+
+let landingPage = document.querySelector(".landing-page");
+let imgsArray = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
+
+function randomizeImgs() {
+  if (backgroundOption === true) {
+    backgroundInterval = setInterval(() => {
+      let randomNumber = Math.floor(Math.random() * imgsArray.length);
+      landingPage.style.backgroundImage =
+        'url("imgs/' + imgsArray[randomNumber] + '")';
+    }, 10000);
+  }
+}
+
+randomizeImgs();
+
+let ourSkills = document.querySelector(".skills");
 
 window.onscroll = function () {
-  let ourskilsscroltop = ourskils.offsetTop;
-  let ourskilsouterheight = ourskils.offsetHeight;
-  let windowheight = this.innerHeight;
+  let skillsOffsetTop = ourSkills.offsetTop;
+  let skillsOuterHeight = ourSkills.offsetHeight;
+  let windowHeight = this.innerHeight;
   let windowScrollTop = this.pageYOffset;
-  if (windowScrollTop > ourskilsscroltop + ourskilsouterheight - windowheight) {
-    let allrskils = document.querySelectorAll(
-      ".Our-Skills .skill-progress span"
+
+  if (windowScrollTop > skillsOffsetTop + skillsOuterHeight - windowHeight) {
+    let allSkills = document.querySelectorAll(
+      ".skill-box .skill-progress span"
     );
-    allrskils.forEach((skil) => {
-      skil.style.width = skil.dataset.progress;
+    allSkills.forEach((skill) => {
+      skill.style.width = skill.dataset.progress;
     });
   }
 };
-let imagesbox = document.querySelectorAll(".images-box img");
-imagesbox.forEach((img) => {
-  img.addEventListener("click", function () {
+
+let ourGallery = document.querySelectorAll(".gallery img");
+
+ourGallery.forEach((img) => {
+  img.addEventListener("click", (e) => {
     let overlay = document.createElement("div");
-    overlay.classList.add("popup-overlay");
+    overlay.className = "popup-overlay";
     document.body.appendChild(overlay);
 
-    let popup = document.createElement("popup");
-    popup.classList.add("popup");
-    document.body.appendChild(popup);
+    let popupBox = document.createElement("div");
+    popupBox.className = "popup-box";
 
-    if (img.alt) {
-      let altimg = document.createElement("h3");
-      altimg.innerHTML = img.alt;
-      popup.appendChild(altimg);
+    if (img.alt !== null) {
+      let imgHeading = document.createElement("h3");
+      let imgText = document.createTextNode(img.alt);
+      imgHeading.appendChild(imgText);
+      popupBox.appendChild(imgHeading);
     }
 
-    let imgpopup = document.createElement("img");
-    imgpopup.src = img.src;
-    imgpopup.classList.add("imgpopup");
-    popup.appendChild(imgpopup);
+    let popupImage = document.createElement("img");
+    popupImage.src = img.src;
+    popupBox.appendChild(popupImage);
+    document.body.appendChild(popupBox);
 
-    let buttoncancel = document.createElement("span");
-    buttoncancel.classList.add("buttoncancel");
-    buttoncancel.innerHTML = "X";
-    popup.appendChild(buttoncancel);
-
-    buttoncancel.addEventListener("click", function () {
-      overlay.style.display = "none";
-      popup.style.display = "none";
-    });
+    let closeButton = document.createElement("span");
+    let closeButtonText = document.createTextNode("X");
+    closeButton.appendChild(closeButtonText);
+    closeButton.className = "close-button";
+    popupBox.appendChild(closeButton);
   });
 });
 
-let navbullets = document.querySelectorAll(".nav-bullets .bullet");
-navbullets.forEach((ele) => {
-  ele.addEventListener("click", function () {
-    document.querySelector(ele.dataset.section).scrollIntoView({
-      behavior: "smooth",
+document.addEventListener("click", function (e) {
+  if (e.target.className == "close-button") {
+    e.target.parentNode.remove();
+    document.querySelector(".popup-overlay").remove();
+  }
+});
+
+const allBullets = document.querySelectorAll(".nav-bullets .bullet");
+const allLinks = document.querySelectorAll(".links a");
+
+function scrollToSomewhere(elements) {
+  elements.forEach((ele) => {
+    ele.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector(e.target.dataset.section).scrollIntoView({
+        behavior: "smooth",
+      });
     });
   });
+}
+
+scrollToSomewhere(allBullets);
+scrollToSomewhere(allLinks);
+
+function handleActive(ev) {
+  ev.target.parentElement.querySelectorAll(".active").forEach((element) => {
+    element.classList.remove("active");
+  });
+  ev.target.classList.add("active");
+}
+
+let bulletsSpan = document.querySelectorAll(".bullets-option span");
+let bulletsContainer = document.querySelector(".nav-bullets");
+let bulletLocalItem = localStorage.getItem("bullets_option");
+
+if (bulletLocalItem !== null) {
+  bulletsSpan.forEach((span) => {
+    span.classList.remove("active");
+  });
+
+  if (bulletLocalItem === "block") {
+    bulletsContainer.style.display = "block";
+    document.querySelector(".bullets-option .yes").classList.add("active");
+  } else {
+    bulletsContainer.style.display = "none";
+    document.querySelector(".bullets-option .no").classList.add("active");
+  }
+}
+
+bulletsSpan.forEach((span) => {
+  span.addEventListener("click", (e) => {
+    if (span.dataset.display === "show") {
+      bulletsContainer.style.display = "block";
+      localStorage.setItem("bullets_option", "block");
+    } else {
+      bulletsContainer.style.display = "none";
+      localStorage.setItem("bullets_option", "none");
+    }
+    handleActive(e);
+  });
 });
+
+document.querySelector(".reset-options").onclick = function () {
+  localStorage.removeItem("color_option");
+  localStorage.removeItem("background_option");
+  localStorage.removeItem("bullets_option");
+  window.location.reload();
+};
+
+let toggleBtn = document.querySelector(".toggle-menu");
+let tLinks = document.querySelector(".links");
+
+toggleBtn.onclick = function (e) {
+  e.stopPropagation();
+  this.classList.toggle("menu-active");
+  tLinks.classList.toggle("open");
+};
+
+document.addEventListener("click", (e) => {
+  if (e.target !== toggleBtn && e.target !== tLinks) {
+    if (tLinks.classList.contains("open")) {
+      toggleBtn.classList.toggle("menu-active");
+      tLinks.classList.toggle("open");
+    }
+  }
+});
+
+tLinks.onclick = function (e) {
+  e.stopPropagation();
+};
